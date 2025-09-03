@@ -2,7 +2,7 @@
 
 This project demonstrates a multi-touch marketing attribution model using an LSTM neural network and beam search for optimal channel and campaign path analysis. It generates synthetic customer and touchpoint data, trains an LSTM to predict conversion, and provides an interactive Jupyter notebook for scenario exploration.
 
-## Model Features
+## Features
 - Synthetic data generation for customers and marketing touchpoints
 - LSTM model for multi-touch attribution
 - Beam search for optimal channel/campaign path discovery
