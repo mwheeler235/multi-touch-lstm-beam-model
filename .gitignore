@@ -1,0 +1,5 @@
+.env/
+lstm_attribution_model.h5
+.ipynb_checkpoints/
+.DS_Store
+img/
