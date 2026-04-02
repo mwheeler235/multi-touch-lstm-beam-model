@@ -34,6 +34,14 @@ Training uses the Adam optimizer at a learning rate of 0.0001 with clipnorm=1.0 
 
 ![Training](/img/optimized_model_training_history.png)
 
+## Beam Search
+
+Beam search is a decoding algorithm for sequence generation tasks (e.g., machine translation, text generation, speech recognition). Rather than choosing the single most likely token at each step, it keeps a fixed-size set of top candidate sequences (the beam) and expands them in parallel to find higher-probability outputs.
+
+In this scenario, the beam search finds the highest-converting sequences of channels and campaigns for a given customer profile, starting from a fixed first touchpoint. It maintains a set of beam_width (set to 3) candidate paths simultaneously — each path being a growing list of channel indices and campaign indices — and expands them one touchpoint at a time up to max_touchpoints. At each step, every existing beam is extended by trying all possible next channels, and for each channel it scores all valid campaigns using the LSTM model's predicted conversion probability. Two hard constraints are enforced during expansion: no single channel or campaign can appear more than twice in a path, and duplicate channel sequences are suppressed via seen_channel_seqs. The temperature parameter controls exploration — values below 1.0 sharpen the probability distribution toward the top candidate, while values above 1.0 flatten it to allow more variety.
+
+Campaign selection is intentionally stochastic rather than purely greedy: for each channel at each step, the top-campaign_sample_topk campaigns are identified by log-prob score, then one or more are sampled proportionally from that shortlist. This prevents the search from always collapsing to the same deterministic path and encourages diversity across beams.
+
 ## Usage
 1. Open `channel_path_beam_search.ipynb` in Jupyter or VS Code.
 2. Run all cells to generate data, train the model, and launch the interactive tool.
@@ -49,4 +57,4 @@ Users can select Starting Channel, Starting Campaign, as well as Customer Age, I
 
 **Requirements:** Python 3.8+, TensorFlow, scikit-learn, matplotlib, ipywidgets, scipy
 
-For questions or contributions, please open an issue or pull request.
+Find me on LinkedIn -> [mateo-wheeler](https://www.linkedin.com/in/mateo-wheeler/)
