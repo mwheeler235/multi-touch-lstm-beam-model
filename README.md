@@ -24,6 +24,16 @@ The resulting customer counts and conversion rate is shown below:
 
 ![Conversion Rate](img/conversion_perc.png)
 
+## LSTM Model
+
+The model is a multi-input Keras functional LSTM that accepts three inputs — a channel sequence (length 8), a campaign sequence (length 8), and 3 scaled customer features (age, income, marital status) — where the channel and campaign sequences are each passed through 4-dimensional embeddings before being concatenated and fed into a 128-unit LSTM. 
+
+The LSTM output is then concatenated with the customer features and passed to a single sigmoid output neuron for binary conversion prediction, compiled with binary cross-entropy loss and tracked across accuracy, precision, and recall. 
+
+Training uses the Adam optimizer at a learning rate of 0.0001 with clipnorm=1.0 to suppress gradient spikes, a batch size of 128 for stable gradient estimates, and runs for up to 30 epochs on a 90/10 train/validation split. Two callbacks govern convergence: EarlyStopping (patience=10, restoring best weights) halts training if validation loss stops improving, while ReduceLROnPlateau halves the learning rate whenever validation loss plateaus for 3 consecutive epochs down to a floor of 1e-6. To address the ~8% positive-class imbalance in the target, compute_class_weight('balanced') is used to upweight the minority class (non-converters) proportionally during training, preventing the model from collapsing into a majority-class predictor.
+
+![Training](/img/optimized_model_training_history.png)
+
 ## Usage
 1. Open `channel_path_beam_search.ipynb` in Jupyter or VS Code.
 2. Run all cells to generate data, train the model, and launch the interactive tool.
