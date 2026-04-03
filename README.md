@@ -24,6 +24,8 @@ Then, we define the permissible Campaigns per Channel to be used in data generat
 
 ![Channel and Campaign Map](img/channel_campaign_map.png)
 
+The touchpoint sequences are generated with a conversion bias to give the LSTM a learnable signal. Converting customers are routed through high-intent, bottom-funnel channels — Email (30%), Direct (25%), and Paid Search (20%) dominate their journeys — while non-converters are steered toward awareness-stage channels like Organic Search (30%), Social (25%), and Display (20%). Campaign selection follows the same logic: converters are 3–6x more likely to encounter retention and re-engagement campaigns such as Retargeting, Abandoned Cart, and Loyalty Program, whereas non-converters are weighted toward Brand Awareness and Content Marketing. Converters are also given longer touchpoint sequences (3–8 steps) to reflect a realistic multi-touch re-engagement pattern, compared to non-converters who typically have shorter journeys (1–6 steps).
+
 The resulting customer counts and conversion rate is shown below:
 
 ![Conversion Rate](img/conversion_perc.png)
@@ -34,7 +36,13 @@ The model is a multi-input Keras functional LSTM that accepts three inputs — a
 
 The LSTM output is then concatenated with the customer features and passed to a single sigmoid output neuron for binary conversion prediction, compiled with binary cross-entropy loss and tracked across accuracy, precision, and recall. 
 
-Training uses the Adam optimizer at a learning rate of 0.0001 with clipnorm=1.0 to suppress gradient spikes, a batch size of 128 for stable gradient estimates, and runs for up to 30 epochs on a 90/10 train/validation split. Two callbacks govern convergence: EarlyStopping (patience=10, restoring best weights) halts training if validation loss stops improving, while ReduceLROnPlateau halves the learning rate whenever validation loss plateaus for 3 consecutive epochs down to a floor of 1e-6. To address the ~8% positive-class imbalance in the target, compute_class_weight('balanced') is used to upweight the minority class (non-converters) proportionally during training, preventing the model from collapsing into a majority-class predictor.
+Training uses:
+ * the Adam optimizer
+ * learning rate of 0.0001 with clipnorm=1.0 to suppress gradient spikes
+ * a batch size of 128 for stable gradient estimates
+ * 30 epochs on a 90/10 train/validation split
+ 
+ Two callbacks govern convergence: EarlyStopping (patience=10, restoring best weights) halts training if validation loss stops improving, while ReduceLROnPlateau halves the learning rate whenever validation loss plateaus for 3 consecutive epochs down to a floor of 1e-6. To address the ~8% positive-class imbalance in the target, compute_class_weight('balanced') is used to upweight the minority class (non-converters) proportionally during training, preventing the model from collapsing into a majority-class predictor.
 
 ![Training](/img/optimized_model_training_history.png)
 
