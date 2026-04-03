@@ -51,7 +51,11 @@ Campaign selection is intentionally stochastic rather than purely greedy: for ea
 
 Users can select Starting Channel, Starting Campaign, as well as Customer Age, Income, Marital Status. The Model Temperature value controls a more deterministic search (<1) or more exploratory search (>1). The results will refresh with the recommended Channel path and Campaign path that optimize liklihood of Customer Conversion.
 
+Let's say we have a customer that is 37, makes $80k, is married. We know the initial customer touchpoint is an email with a Brand Awareness campaign. We can raise the Temperature to 1.2 to encourage more exploration, then click the Calculate Optimization button: 
+
 ![Interactive UI Example](img/ipython_screenshot.png)
+
+The beam search and results are restricted to the permissible static channel_campaign_map. However, in a real-world marketing context, this channel_campaign_map might be user-specific or vary based on seasonality.
 
 ---
 
