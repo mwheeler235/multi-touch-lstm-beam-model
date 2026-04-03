@@ -20,6 +20,10 @@ The following lists are used to generate the Touchpoints dataset:
 
 ![Channel and Campaign Lists](img/channel_campaign_lists.png)
 
+Then, we define the permissable Campaigns per Channel:
+
+<img src="img/channel_campaign_map.png" alt="Map" width="50%">
+
 The resulting customer counts and conversion rate is shown below:
 
 ![Conversion Rate](img/conversion_perc.png)
