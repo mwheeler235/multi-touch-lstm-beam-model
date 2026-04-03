@@ -20,7 +20,7 @@ The following lists are used to generate the Touchpoints dataset:
 
 ![Channel and Campaign Lists](img/channel_campaign_lists.png)
 
-Then, we define the permissable Campaigns per Channel:
+Then, we define the permissible Campaigns per Channel to be used in data generation and the final beam search:
 
 ![Channel and Campaign Map](img/channel_campaign_map.png)
 
