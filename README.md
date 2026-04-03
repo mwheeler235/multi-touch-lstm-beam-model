@@ -12,9 +12,9 @@ This project demonstrates a multi-touch marketing attribution model using an LST
 
 The synthetic customer data is generated using realistic distributions: Age is sampled from a normal distribution (clipped to 18-70), and Income is drawn from a truncated normal distribution centered around $75,000. Marital status is randomly assigned with realistic probabilities, and the conversion target is correlated with age, income, and marital status to reflect real-world marketing response patterns. Below are the distributions for Age and Income.
 
-<img src="img/age_ss.png" alt="Age Distribution" width="50%">
+<img src="img/age_histo.png" alt="Age Distribution" width="50%">
 
-<img src="img/income_ss.png" alt="Income Distribution" width="50%">
+<img src="img/income_histo.png" alt="Income Distribution" width="50%">
 
 The following lists are used to generate the Touchpoints dataset:
 
